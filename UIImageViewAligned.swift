@@ -202,10 +202,15 @@ open class UIImageViewAligned: UIImageView {
     open override func didMoveToWindow() {
         super.didMoveToWindow()
         layer.contents = nil
-        if #available(iOS 11, *) {
+
+        if #available(iOS 13, *) {
+            self.layer.contents = CALayer()
+        } else if #available(iOS 11, *) {
             let currentImage = realImageView?.image
             image = nil
             realImageView?.image = currentImage
+        } else {
+            layer.contents = nil
         }
     }
     
